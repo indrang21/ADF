@@ -30,7 +30,7 @@
 						"referenceName": "ds_listoffiles",
 						"type": "DatasetReference"
 					},
-					"firstRowOnly": true
+					"firstRowOnly": false
 				}
 			},
 			{
