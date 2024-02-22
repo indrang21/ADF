@@ -78,6 +78,62 @@
 								"parameters": {}
 							}
 						]
+					},
+					{
+						"name": "Copy ipl 2009 data",
+						"type": "Copy",
+						"dependsOn": [
+							{
+								"activity": "Copy ipl 2008 data",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "DelimitedTextSource",
+								"storeSettings": {
+									"type": "HttpReadSettings",
+									"requestMethod": "GET"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings"
+								}
+							},
+							"sink": {
+								"type": "JsonSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "JsonWriteSettings"
+								}
+							},
+							"enableStaging": false
+						},
+						"inputs": [
+							{
+								"referenceName": "ds_source_ipl_2009_csv",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ds_sink_ipl_2009_Json",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
 					}
 				],
 				"policy": {
@@ -87,7 +143,9 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/ds_source_ipl_2008_csv')]",
-				"[concat(variables('factoryId'), '/datasets/ds_sink_ipl_2008_Json')]"
+				"[concat(variables('factoryId'), '/datasets/ds_sink_ipl_2008_Json')]",
+				"[concat(variables('factoryId'), '/datasets/ds_source_ipl_2009_csv')]",
+				"[concat(variables('factoryId'), '/datasets/ds_sink_ipl_2009_Json')]"
 			]
 		},
 		{
