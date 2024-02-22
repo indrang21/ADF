@@ -257,59 +257,6 @@
 			"properties": {
 				"activities": [
 					{
-						"name": "Copy data2008 ipl",
-						"type": "Copy",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "DelimitedTextSource",
-								"storeSettings": {
-									"type": "HttpReadSettings",
-									"requestMethod": "GET"
-								},
-								"formatSettings": {
-									"type": "DelimitedTextReadSettings"
-								}
-							},
-							"sink": {
-								"type": "JsonSink",
-								"storeSettings": {
-									"type": "AzureBlobFSWriteSettings"
-								},
-								"formatSettings": {
-									"type": "JsonWriteSettings"
-								}
-							},
-							"enableStaging": false
-						},
-						"inputs": [
-							{
-								"referenceName": "ds_source_ipl_2008_csv_pram",
-								"type": "DatasetReference",
-								"parameters": {
-									"pfilenameS": "ipl_2008.csv"
-								}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "ds_sink_ipl_2008_Json_pram",
-								"type": "DatasetReference",
-								"parameters": {
-									"psinkFilename": "ipl_2008.json"
-								}
-							}
-						]
-					},
-					{
 						"name": "Lookupfilenames",
 						"type": "Lookup",
 						"dependsOn": [],
@@ -361,13 +308,63 @@
 							"isSequential": true,
 							"activities": [
 								{
-									"name": "Wait1 sec",
-									"type": "Wait",
+									"name": "Copy data ipl",
+									"type": "Copy",
 									"dependsOn": [],
+									"policy": {
+										"timeout": "0.12:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
 									"userProperties": [],
 									"typeProperties": {
-										"waitTimeInSeconds": 1
-									}
+										"source": {
+											"type": "DelimitedTextSource",
+											"storeSettings": {
+												"type": "HttpReadSettings",
+												"requestMethod": "GET"
+											},
+											"formatSettings": {
+												"type": "DelimitedTextReadSettings"
+											}
+										},
+										"sink": {
+											"type": "JsonSink",
+											"storeSettings": {
+												"type": "AzureBlobFSWriteSettings"
+											},
+											"formatSettings": {
+												"type": "JsonWriteSettings"
+											}
+										},
+										"enableStaging": false
+									},
+									"inputs": [
+										{
+											"referenceName": "ds_source_ipl_2008_csv_pram",
+											"type": "DatasetReference",
+											"parameters": {
+												"pfilenameS": {
+													"value": "@item().Files",
+													"type": "Expression"
+												}
+											}
+										}
+									],
+									"outputs": [
+										{
+											"referenceName": "ds_sink_ipl_2008_Json_pram",
+											"type": "DatasetReference",
+											"parameters": {
+												"psinkFilename": {
+													"value": "@replace(item().Files,'.csv','.json')",
+													"type": "Expression"
+												}
+											}
+										}
+									]
 								}
 							]
 						}
@@ -379,9 +376,9 @@
 				"annotations": []
 			},
 			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/ds_listoffiles')]",
 				"[concat(variables('factoryId'), '/datasets/ds_source_ipl_2008_csv_pram')]",
-				"[concat(variables('factoryId'), '/datasets/ds_sink_ipl_2008_Json_pram')]",
-				"[concat(variables('factoryId'), '/datasets/ds_listoffiles')]"
+				"[concat(variables('factoryId'), '/datasets/ds_sink_ipl_2008_Json_pram')]"
 			]
 		},
 		{
