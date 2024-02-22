@@ -1,0 +1,30 @@
+{
+	"name": "ds_source_ipl_2008_csv_pram",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_HttpServer_github",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"pfilenameS": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "HttpServerLocation",
+				"relativeUrl": {
+					"value": "@dataset().pfilenameS",
+					"type": "Expression"
+				}
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}
