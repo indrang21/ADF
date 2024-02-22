@@ -7,6 +7,10 @@
 			"url": "https://raw.githubusercontent.com/indrang21/ADF/main/dataset/",
 			"enableServerCertificateValidation": true,
 			"authenticationType": "Anonymous"
+		},
+		"connectVia": {
+			"referenceName": "integrationRuntime1",
+			"type": "IntegrationRuntimeReference"
 		}
 	}
 }
