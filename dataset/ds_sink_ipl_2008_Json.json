@@ -1,5 +1,5 @@
 {
-	"name": "ds_ipl_2008_Json",
+	"name": "ds_sink_ipl_2008_Json",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "LS_AzureDataLakeStorageG2",
