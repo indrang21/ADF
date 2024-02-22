@@ -12,7 +12,7 @@
 			"value": "https://adfprojectipldata5658.dfs.core.windows.net/"
 		},
 		"LS_HttpServer_github_properties_typeProperties_url": {
-			"value": "https://raw.githubusercontent.com/indrang21/ADF/main/dataset/"
+			"value": "https://github.com/indrang21/ADF/raw/main/dataset/"
 		},
 		"containerUri": {
 			"value": ""

@@ -17,7 +17,7 @@
 		},
 		"LS_HttpServer_github_properties_typeProperties_url": {
 			"type": "string",
-			"defaultValue": "https://raw.githubusercontent.com/indrang21/ADF/main/dataset/"
+			"defaultValue": "https://github.com/indrang21/ADF/raw/main/dataset/"
 		},
 		"containerUri": {
 			"type": "string",
