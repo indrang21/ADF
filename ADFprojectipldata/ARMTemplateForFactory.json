@@ -59,12 +59,12 @@
 								"type": "DatasetReference",
 								"parameters": {}
 							},
-							"firstRowOnly": false
+							"firstRowOnly": true
 						}
 					},
 					{
-						"name": "ForEachFilenames",
-						"type": "ForEach",
+						"name": "Copy data ipl",
+						"type": "Copy",
 						"dependsOn": [
 							{
 								"activity": "Lookupfilenames",
@@ -73,75 +73,60 @@
 								]
 							}
 						],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
 						"userProperties": [],
 						"typeProperties": {
-							"items": {
-								"value": "@activity('Lookupfilenames').output.value",
-								"type": "Expression"
-							},
-							"isSequential": true,
-							"activities": [
-								{
-									"name": "Copy data ipl",
-									"type": "Copy",
-									"dependsOn": [],
-									"policy": {
-										"timeout": "0.12:00:00",
-										"retry": 0,
-										"retryIntervalInSeconds": 30,
-										"secureOutput": false,
-										"secureInput": false
-									},
-									"userProperties": [],
-									"typeProperties": {
-										"source": {
-											"type": "DelimitedTextSource",
-											"storeSettings": {
-												"type": "HttpReadSettings",
-												"requestMethod": "GET"
-											},
-											"formatSettings": {
-												"type": "DelimitedTextReadSettings"
-											}
-										},
-										"sink": {
-											"type": "JsonSink",
-											"storeSettings": {
-												"type": "AzureBlobFSWriteSettings"
-											},
-											"formatSettings": {
-												"type": "JsonWriteSettings"
-											}
-										},
-										"enableStaging": false
-									},
-									"inputs": [
-										{
-											"referenceName": "ds_source_ipl_2008_csv_pram",
-											"type": "DatasetReference",
-											"parameters": {
-												"pfilenameS": {
-													"value": "@item().Files",
-													"type": "Expression"
-												}
-											}
-										}
-									],
-									"outputs": [
-										{
-											"referenceName": "ds_sink_ipl_2008_Json_pram",
-											"type": "DatasetReference",
-											"parameters": {
-												"psinkFilename": {
-													"value": "@replace(item().Files,'.csv','.json')",
-													"type": "Expression"
-												}
-											}
-										}
-									]
+							"source": {
+								"type": "DelimitedTextSource",
+								"storeSettings": {
+									"type": "HttpReadSettings",
+									"requestMethod": "GET"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings"
 								}
-							]
-						}
+							},
+							"sink": {
+								"type": "JsonSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "JsonWriteSettings"
+								}
+							},
+							"enableStaging": false
+						},
+						"inputs": [
+							{
+								"referenceName": "ds_source_ipl_2008_csv_pram",
+								"type": "DatasetReference",
+								"parameters": {
+									"pfilenameS": {
+										"value": "ipl_2008.csv",
+										"type": "Expression"
+									}
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ds_sink_ipl_2008_Json_pram",
+								"type": "DatasetReference",
+								"parameters": {
+									"psinkFilename": {
+										"value": "ipl_2008.json",
+										"type": "Expression"
+									}
+								}
+							}
+						]
 					}
 				],
 				"policy": {
