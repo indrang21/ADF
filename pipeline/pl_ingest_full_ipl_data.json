@@ -5,14 +5,7 @@
 			{
 				"name": "Copy data2008 ipl",
 				"type": "Copy",
-				"dependsOn": [
-					{
-						"activity": "Lookupfilenames",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
+				"dependsOn": [],
 				"policy": {
 					"timeout": "0.12:00:00",
 					"retry": 0,
@@ -89,7 +82,39 @@
 					"dataset": {
 						"referenceName": "ds_listoffiles",
 						"type": "DatasetReference"
+					},
+					"firstRowOnly": false
+				}
+			},
+			{
+				"name": "ForEachFilenames",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "Lookupfilenames",
+						"dependencyConditions": [
+							"Succeeded"
+						]
 					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('Lookupfilenames').output.value",
+						"type": "Expression"
+					},
+					"isSequential": true,
+					"activities": [
+						{
+							"name": "Wait1 sec",
+							"type": "Wait",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"waitTimeInSeconds": 1
+							}
+						}
+					]
 				}
 			}
 		],
