@@ -1,0 +1,19 @@
+{
+	"name": "ds_sink_ipl_2009_Json",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_AzureDataLakeStorageG2",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "ipl 2009.json",
+				"fileSystem": "raw"
+			}
+		},
+		"schema": {}
+	}
+}
