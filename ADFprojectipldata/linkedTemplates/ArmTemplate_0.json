@@ -209,7 +209,6 @@
 							"value": "@dataset().FileName",
 							"type": "Expression"
 						},
-						"folderPath": "allHTTPFiles",
 						"fileSystem": "raw"
 					},
 					"columnDelimiter": ",",
