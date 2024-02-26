@@ -5,14 +5,14 @@
 		"factoryName": {
 			"value": "ADFprojectipldata"
 		},
-		"LS_AzureDataLakeStorageG2_accountKey": {
+		"AzureDataLakeStorage1_accountKey": {
 			"value": ""
 		},
-		"LS_AzureDataLakeStorageG2_properties_typeProperties_url": {
+		"AzureDataLakeStorage1_properties_typeProperties_url": {
 			"value": "https://adfprojectipldata5658.dfs.core.windows.net/"
 		},
-		"LS_HttpServer_github_properties_typeProperties_url": {
-			"value": "https://github.com/indrang21/ADF/raw/main/dataset/"
+		"LS_HttpServer_alliplfiles_properties_typeProperties_url": {
+			"value": "@{linkedService().BaseURL}"
 		},
 		"containerUri": {
 			"value": ""
