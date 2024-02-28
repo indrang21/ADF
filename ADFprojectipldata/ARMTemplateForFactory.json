@@ -105,25 +105,15 @@
 											}
 										},
 										"sink": {
-											"type": "DelimitedTextSink",
+											"type": "JsonSink",
 											"storeSettings": {
 												"type": "AzureBlobFSWriteSettings"
 											},
 											"formatSettings": {
-												"type": "DelimitedTextWriteSettings",
-												"quoteAllText": true,
-												"fileExtension": ".txt"
+												"type": "JsonWriteSettings"
 											}
 										},
-										"enableStaging": false,
-										"translator": {
-											"type": "TabularTranslator",
-											"typeConversion": true,
-											"typeConversionSettings": {
-												"allowDataTruncation": true,
-												"treatBooleanAsNumber": false
-											}
-										}
+										"enableStaging": false
 									},
 									"inputs": [
 										{
@@ -143,11 +133,11 @@
 									],
 									"outputs": [
 										{
-											"referenceName": "sink_alliplfiles",
+											"referenceName": "all_ipl_files_sink_Json",
 											"type": "DatasetReference",
 											"parameters": {
 												"FileName": {
-													"value": "@item().FileName",
+													"value": "@replace(item().FileName,'.csv','.json')",
 													"type": "Expression"
 												}
 											}
@@ -166,7 +156,7 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/all_ipl_files_Json')]",
 				"[concat(variables('factoryId'), '/datasets/all_ipl_files_csv')]",
-				"[concat(variables('factoryId'), '/datasets/sink_alliplfiles')]"
+				"[concat(variables('factoryId'), '/datasets/all_ipl_files_sink_Json')]"
 			]
 		},
 		{
@@ -271,6 +261,38 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/LS_HttpServer_alliplfiles')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/all_ipl_files_sink_Json')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureDataLakeStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"FileName": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": {
+							"value": "@dataset().FileName",
+							"type": "Expression"
+						},
+						"fileSystem": "raw"
+					}
+				},
+				"schema": {}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage1')]"
 			]
 		},
 		{
