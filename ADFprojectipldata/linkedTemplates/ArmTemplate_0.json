@@ -178,6 +178,7 @@
 					"columnDelimiter": ",",
 					"escapeChar": "\\",
 					"firstRowAsHeader": true,
+					"nullValue": "indrani",
 					"quoteChar": "\""
 				},
 				"schema": []
