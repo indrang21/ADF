@@ -9,7 +9,7 @@
 		"annotations": [],
 		"type": "HttpServer",
 		"typeProperties": {
-			"url": "@{linkedService().BaseURL}",
+			"url": "@{concat(linkedService().BaseURL, dataset().RelativeURL, item().name)}",
 			"enableServerCertificateValidation": true,
 			"authenticationType": "Anonymous"
 		}
