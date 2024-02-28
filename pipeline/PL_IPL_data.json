@@ -76,25 +76,15 @@
 									}
 								},
 								"sink": {
-									"type": "DelimitedTextSink",
+									"type": "JsonSink",
 									"storeSettings": {
 										"type": "AzureBlobFSWriteSettings"
 									},
 									"formatSettings": {
-										"type": "DelimitedTextWriteSettings",
-										"quoteAllText": true,
-										"fileExtension": ".txt"
+										"type": "JsonWriteSettings"
 									}
 								},
-								"enableStaging": false,
-								"translator": {
-									"type": "TabularTranslator",
-									"typeConversion": true,
-									"typeConversionSettings": {
-										"allowDataTruncation": true,
-										"treatBooleanAsNumber": false
-									}
-								}
+								"enableStaging": false
 							},
 							"inputs": [
 								{
@@ -114,11 +104,11 @@
 							],
 							"outputs": [
 								{
-									"referenceName": "sink_alliplfiles",
+									"referenceName": "all_ipl_files_sink_Json",
 									"type": "DatasetReference",
 									"parameters": {
 										"FileName": {
-											"value": "@item().FileName",
+											"value": "@replace(item().FileName,'.csv','.json')",
 											"type": "Expression"
 										}
 									}
